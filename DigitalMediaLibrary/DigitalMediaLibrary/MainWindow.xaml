@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalMediaLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Цифровая медиатека" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
+    <Grid ShowGridLines="True" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Expander Grid.Column="0" ExpandDirection="Right"
+              HorizontalAlignment="Left" Background="LightBlue" >
+            <Expander.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock TextWrapping="Wrap" Text="Some text Some text Some Text" Grid.Column="0"/>
+                    <GridSplitter Grid.Column="1" Width="5"
+                              ResizeBehavior="PreviousAndCurrent"
+                              ResizeDirection="Columns"
+                              HorizontalAlignment="Stretch"/>
+                </Grid>
+            </Expander.Content>
+        </Expander>
+
+        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></Grid>
+        <Expander Grid.Column="2" ExpandDirection="Left"
+              HorizontalAlignment="Right" Background="LightBlue" >
+            <Expander.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock TextWrapping="Wrap" Text="Some text Some text Some Text" Grid.Column="1"/>
+                    <GridSplitter Grid.Column="0" Width="5"
+                              ResizeBehavior="CurrentAndNext"
+                              ResizeDirection="Columns"
+                              HorizontalAlignment="Stretch"/>
+                </Grid>
+            </Expander.Content>
+        </Expander>
     </Grid>
 </Window>
