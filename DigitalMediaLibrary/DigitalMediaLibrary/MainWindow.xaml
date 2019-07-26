@@ -49,24 +49,23 @@
                 </Expander.Content>
             </Expander>
 
-        <Grid Grid.Column="1" Grid.Row="0" ></Grid>
+        <Grid HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" >
+            
+        </Grid>
         <Expander Grid.Column="2" Grid.Row="0"  
-                  ExpandDirection="Left"
+                  ExpandDirection="Right"
+                  FlowDirection="RightToLeft"
                   HorizontalAlignment="Left" 
                   Background="LightBlue" >
             <Expander.Content>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <GridSplitter Grid.Column="0" Width="5"
-                              ResizeBehavior="CurrentAndNext"
-                              ResizeDirection="Columns"
-                              HorizontalAlignment="Stretch"/>
-                    <Grid HorizontalAlignment="Stretch" Grid.Column="1" MinWidth="100">
-                        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
+                        <TabControl FlowDirection="LeftToRight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <TabItem Header="Каталог">
                                 <TreeView>
 
@@ -79,7 +78,10 @@
                             </TabItem>
                         </TabControl>
                     </Grid>
-                    
+                    <GridSplitter Grid.Column="1" Width="5"
+                              ResizeBehavior="PreviousAndCurrent"
+                              ResizeDirection="Columns"
+                              HorizontalAlignment="Stretch"/>
                 </Grid>
             </Expander.Content>
         </Expander>
