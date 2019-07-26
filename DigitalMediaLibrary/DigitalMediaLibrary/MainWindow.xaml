@@ -4,36 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalMediaLibrary"
+        xmlns:Views="clr-namespace:DigitalMediaLibrary.View"
         mc:Ignorable="d"
         Title="Цифровая медиатека" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
-    <Grid ShowGridLines="True" >
+    <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Expander Grid.Column="0" Grid.Row="0"  
+                  ExpandDirection="Right"
+                  HorizontalAlignment="Left" 
+                  Background="LightBlue" >
+                <Expander.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
 
-        <Expander Grid.Column="0" ExpandDirection="Right"
-              HorizontalAlignment="Left" Background="LightBlue" >
-            <Expander.Content>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
+                            <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <TabItem Header="Каталог">
+                                    <TreeView>
 
-                    <TextBlock TextWrapping="Wrap" Text="Some text Some text Some Text" Grid.Column="0"/>
-                    <GridSplitter Grid.Column="1" Width="5"
+                                    </TreeView>
+                                </TabItem>
+                                <TabItem Header="Категория">
+                                    <TreeView>
+
+                                    </TreeView>
+                                </TabItem>
+                            </TabControl>
+                        </Grid>
+                        <GridSplitter Grid.Column="1" Width="5"
                               ResizeBehavior="PreviousAndCurrent"
                               ResizeDirection="Columns"
                               HorizontalAlignment="Stretch"/>
-                </Grid>
-            </Expander.Content>
-        </Expander>
+                    </Grid>
+                </Expander.Content>
+            </Expander>
 
-        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></Grid>
-        <Expander Grid.Column="2" ExpandDirection="Left"
-              HorizontalAlignment="Right" Background="LightBlue" >
+        <Grid Grid.Column="1" Grid.Row="0" ></Grid>
+        <Expander Grid.Column="2" Grid.Row="0"  
+                  ExpandDirection="Left"
+                  HorizontalAlignment="Left" 
+                  Background="LightBlue" >
             <Expander.Content>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -41,13 +61,28 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock TextWrapping="Wrap" Text="Some text Some text Some Text" Grid.Column="1"/>
                     <GridSplitter Grid.Column="0" Width="5"
                               ResizeBehavior="CurrentAndNext"
                               ResizeDirection="Columns"
                               HorizontalAlignment="Stretch"/>
+                    <Grid HorizontalAlignment="Stretch" Grid.Column="1" MinWidth="100">
+                        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <TabItem Header="Каталог">
+                                <TreeView>
+
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="Категория">
+                                <TreeView>
+
+                                </TreeView>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                    
                 </Grid>
             </Expander.Content>
         </Expander>
+
     </Grid>
 </Window>
