@@ -10,8 +10,8 @@ namespace DigitalMediaLibrary.ViewModel
 {
     public class IndexMediaFilesViewModel:ViewModel
     {
-        private List<MediaFileViewModel> mediaFiles;
-        public List<MediaFileViewModel> MediaFiles {
+        private ObservableCollection<MediaFileViewModel> mediaFiles;
+        public ObservableCollection<MediaFileViewModel> MediaFiles {
             get
             {
                 return mediaFiles;
@@ -25,7 +25,7 @@ namespace DigitalMediaLibrary.ViewModel
 
         public IndexMediaFilesViewModel()
         {
-            mediaFiles = new List<MediaFileViewModel>();
+            mediaFiles = new ObservableCollection<MediaFileViewModel>();
         }
 
         private MediaFileViewModel selectedMediaFile;
@@ -55,7 +55,13 @@ namespace DigitalMediaLibrary.ViewModel
                 currentDirectory = value;
                 ReloadFiles(value);
                 OnPropertyChanged("CurrentDirectory");
+                OnPropertyChanged("MediaFiles");
             }
+        }
+
+        public void ChangeDirectory(string path)
+        {
+            CurrentDirectory = path;
         }
 
         private Category currentCategory;
@@ -74,7 +80,7 @@ namespace DigitalMediaLibrary.ViewModel
 
         public void ReloadFiles(string path)
         {
-            MediaFiles = new List<MediaFileViewModel>();
+            MediaFiles = new ObservableCollection<MediaFileViewModel>();
             foreach(var mf in HelpUtils.FileManager.GetFilesFromDirectory(path))
             {
                 MediaFiles.Add(new MediaFileViewModel(mf));

@@ -20,6 +20,17 @@ namespace DigitalMediaLibrary.Model.DataAccess
             }
         }
 
+        public static ObservableCollection<Category> GetCategories(long ID_type)
+        {
+            using (Context db = new Context())
+            {
+                ObservableCollection<Category> categories = new ObservableCollection<Category>();
+                foreach (var category in db.Categories.Where(c=>c.ID_Type==ID_type))
+                    categories.Add(category);
+                return categories;
+            }
+        }
+
         public static ObservableCollection<Category> GetCategories()
         {
             using (Context db = new Context())
@@ -38,9 +49,10 @@ namespace DigitalMediaLibrary.Model.DataAccess
                 if (category is null)
                     return;
                 if (db.Categories.Any(c => c.ID == category.ID))
-                    db.Categories.Update(category);
-                else
-                    db.Add(category);
+                {
+                    db.Categories.Remove(category);
+                }
+                db.Categories.Add(category);
                 db.SaveChanges();
             }
         }

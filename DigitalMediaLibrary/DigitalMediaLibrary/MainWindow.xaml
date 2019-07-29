@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalMediaLibrary"
         xmlns:Views="clr-namespace:DigitalMediaLibrary.View"
+        xmlns:ViewModels="clr-namespace:DigitalMediaLibrary.ViewModel"
+        xmlns:Converters="clr-namespace:DigitalMediaLibrary.Converters"
         mc:Ignorable="d"
         Title="Цифровая медиатека" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
+    <Window.Resources>
+        <Converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
+    </Window.Resources>
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -30,8 +35,15 @@
                         <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
                             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <TabItem Header="Каталог">
-                                    <TreeView>
-
+                                <TabItem.DataContext>
+                                    <ViewModels:DirectoryTreeViewModel/>
+                                </TabItem.DataContext>
+                                <TreeView x:Name="DirectoriesTreeView" ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding directoryNodes}" >
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
                                     </TreeView>
                                 </TabItem>
                                 <TabItem Header="Категория">
@@ -50,6 +62,33 @@
             </Expander>
 
         <Grid HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" >
+            <Grid.DataContext>
+                <ViewModels:IndexMediaFilesViewModel/>
+            </Grid.DataContext>
+            <ListBox x:Name="MediaFilesListBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding MediaFiles}" SelectedItem="{Binding SelectedMediaFile, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="10,10,10,10"  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate >
+                    <HierarchicalDataTemplate >
+                        <Grid Width="100" Height="150">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="50"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Height="100" Width="100" Grid.Row="0" Source="{Binding Extension, Converter={StaticResource MediaTypeToImageConverter}}"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="{Binding Name}" TextWrapping="Wrap"/>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Добавить в базу" Command="{Binding SaveFileCommand}"></MenuItem>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                        </Grid>
+                         </HierarchicalDataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             
         </Grid>
         <Expander Grid.Column="2" Grid.Row="0"  
@@ -65,18 +104,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
-                        <TabControl FlowDirection="LeftToRight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <TabItem Header="Каталог">
-                                <TreeView>
-
-                                </TreeView>
-                            </TabItem>
-                            <TabItem Header="Категория">
-                                <TreeView>
-
-                                </TreeView>
-                            </TabItem>
-                        </TabControl>
+                        
                     </Grid>
                     <GridSplitter Grid.Column="1" Width="5"
                               ResizeBehavior="PreviousAndCurrent"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigitalMediaLibrary.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace DigitalMediaLibrary
         public MainWindow()
         {
             InitializeComponent();
+            DirectoryTreeViewModel = new DirectoryTreeViewModel();
+            DirectoriesTreeView.DataContext = DirectoryTreeViewModel;
+            IndexMediaFilesViewModel = new IndexMediaFilesViewModel();
+            MediaFilesListBox.DataContext = IndexMediaFilesViewModel;
+            DirectoryTreeViewModel.OnChange += IndexMediaFilesViewModel.ChangeDirectory;
+        }
+
+        public DirectoryTreeViewModel DirectoryTreeViewModel { get; set; }
+        public IndexMediaFilesViewModel IndexMediaFilesViewModel { get; set; }
+
+        private void TreeView_Expanded(object sender, RoutedEventArgs e)
+        {
+            DirectoryTreeViewModel.ExpandNode(sender, e);
+        }
+
+        private void DirectoriesTreeView_Selected(object sender, RoutedEventArgs e)
+        {
+            DirectoryTreeViewModel.SelectNode(sender, e);
         }
     }
 }

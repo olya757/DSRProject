@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +9,9 @@ namespace DigitalMediaLibrary.Model
 {
     public class Context: DbContext
     {
-        public Context() : base()
+        //public static string _path = @"Data Source=MediaLibrary.db";
+        public Context() : base("DbConnection")
         {
-
         }
 
         public DbSet<MediaType> MediaTypes { get; set; }

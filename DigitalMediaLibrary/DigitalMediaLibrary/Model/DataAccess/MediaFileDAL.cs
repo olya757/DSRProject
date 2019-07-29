@@ -38,9 +38,8 @@ namespace DigitalMediaLibrary.Model.DataAccess
                 if (mediaFile is null)
                     return;
                 if (db.MediaFiles.Any(mf => mf.ID == mediaFile.ID))
-                    db.MediaFiles.Update(mediaFile);
-                else
-                    db.Add(mediaFile);
+                    db.MediaFiles.Remove(mediaFile);
+                db.MediaFiles.Add(mediaFile);
                 db.SaveChanges();
             }
         }

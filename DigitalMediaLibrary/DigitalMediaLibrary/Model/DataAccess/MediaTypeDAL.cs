@@ -49,9 +49,8 @@ namespace DigitalMediaLibrary.Model.DataAccess
             using (Context db = new Context())
             {
                 if (db.MediaTypes.Any(mt => mt.ID == mediaType.ID))
-                    db.MediaTypes.Update(mediaType);
-                else
-                    db.MediaTypes.Add(mediaType);
+                    db.MediaTypes.Remove(mediaType);
+                db.MediaTypes.Add(mediaType);
                 db.SaveChanges();
             }
         }

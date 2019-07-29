@@ -22,7 +22,7 @@ namespace DigitalMediaLibrary.Model
         [Key]
         public long ID { get; set; }
 
-        [ForeignKey("Type")]
+        [ForeignKey("MediaType")]
         public long ID_Type { get; set; }
         public MediaType MediaType { get; set; }
         public string Name { get; set; }

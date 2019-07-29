@@ -142,12 +142,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\NodeExpandCommand.cs" />
+    <Compile Include="Commands\NodeSelectCommand.cs" />
+    <Compile Include="Commands\SaveFileCommand.cs" />
+    <Compile Include="Converters\MediaTypeToImageConverter.cs" />
+    <Compile Include="HelpUtils\DirectoryNode.cs" />
     <Compile Include="HelpUtils\FileManager.cs" />
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\DataAccess\CategoryDAL.cs" />
     <Compile Include="Model\DataAccess\MediaFileDAL.cs" />
     <Compile Include="Model\DataAccess\MediaTypeDAL.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
+    <Compile Include="ViewModel\DirectoryTreeViewModel.cs" />
     <Compile Include="ViewModel\IndexMediaFilesViewModel.cs" />
     <Compile Include="ViewModel\MediaFileViewModel.cs" />
     <Compile Include="ViewModel\MediaTypeViewModel.cs" />
@@ -199,6 +205,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSources\audio.png" />
+    <Resource Include="ImageSources\video.png" />
+    <Resource Include="ImageSources\picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSources\undefined.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

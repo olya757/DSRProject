@@ -1,4 +1,6 @@
-﻿using DigitalMediaLibrary.Model;
+﻿using DigitalMediaLibrary.Commands;
+using DigitalMediaLibrary.Model;
+using DigitalMediaLibrary.Model.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,16 @@ namespace DigitalMediaLibrary.ViewModel
         public MediaFileViewModel()
         {
             mediaFile = new MediaFile();
+            SaveFileCommand = new SaveFileCommand(this);
         }
 
         public MediaFileViewModel(MediaFile mediaFile)
         {
             this.mediaFile = mediaFile;
+            SaveFileCommand = new SaveFileCommand(this);
         }
+
+        public SaveFileCommand SaveFileCommand { get; set; }
 
         public long ID
         {
@@ -56,7 +62,7 @@ namespace DigitalMediaLibrary.ViewModel
                 OnPropertyChanged("Name");
             }
         }
-        public string Extention
+        public string Extension
         {
             get
             {
@@ -105,5 +111,9 @@ namespace DigitalMediaLibrary.ViewModel
             }
         }
          
+        public void Save()
+        {
+            MediaFileDAL.SetMediaFile(mediaFile);
+        }
     }
 }
