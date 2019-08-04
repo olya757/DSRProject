@@ -1,5 +1,5 @@
-﻿using DigitalMediaLibrary.Model;
-using DigitalMediaLibrary.Model.DataAccess;
+﻿using DigitalMediaLibrary.ClassLibrary.Model;
+using DigitalMediaLibrary.ClassLibrary.Model.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.IO;

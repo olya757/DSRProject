@@ -1,5 +1,5 @@
 ﻿using DigitalMediaLibrary.HelpUtils;
-using DigitalMediaLibrary.Model;
+using DigitalMediaLibrary.ClassLibrary.Model;
 using DigitalMediaLibrary.ViewModel;
 using System;
 using System.Collections.Generic;

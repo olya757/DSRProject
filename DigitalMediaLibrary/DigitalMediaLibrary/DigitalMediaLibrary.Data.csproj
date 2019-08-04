@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D687A68-9B4C-4332-B268-7BE8FF74D760}</ProjectGuid>
+    <ProjectGuid>{960685F1-3A22-4E15-83DA-8F423FC3B894}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DigitalMediaLibrary</RootNamespace>
     <AssemblyName>DigitalMediaLibrary</AssemblyName>
@@ -142,25 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\NodeExpandCommand.cs" />
-    <Compile Include="Commands\NodeSelectCommand.cs" />
-    <Compile Include="Commands\SaveFileCommand.cs" />
-    <Compile Include="Converters\MediaTypeToImageConverter.cs" />
-    <Compile Include="HelpUtils\DirectoryNode.cs" />
-    <Compile Include="HelpUtils\FileManager.cs" />
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\DataAccess\CategoryDAL.cs" />
     <Compile Include="Model\DataAccess\MediaFileDAL.cs" />
     <Compile Include="Model\DataAccess\MediaTypeDAL.cs" />
-    <Compile Include="ViewModel\CategoryViewModel.cs" />
-    <Compile Include="ViewModel\DirectoryTreeViewModel.cs" />
-    <Compile Include="ViewModel\IndexMediaFilesViewModel.cs" />
-    <Compile Include="ViewModel\MediaFileViewModel.cs" />
-    <Compile Include="ViewModel\MediaTypeViewModel.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="View\MediaFilesView.xaml.cs">
-      <DependentUpon>MediaFilesView.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -173,10 +158,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\MediaFilesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Model.cs" />
@@ -205,14 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ImageSources\audio.png" />
-    <Resource Include="ImageSources\video.png" />
-    <Resource Include="ImageSources\picture.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ImageSources\undefined.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
