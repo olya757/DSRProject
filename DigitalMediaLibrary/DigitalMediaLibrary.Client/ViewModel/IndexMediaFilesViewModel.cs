@@ -1,12 +1,15 @@
 ﻿using DigitalMediaLibrary.ClassLibrary.Model;
+using DigitalMediaLibrary.ClassLibrary.Model.DataAccess;
+using DigitalMediaLibrary.Client.HelpUtils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalMediaLibrary.ViewModel
+namespace DigitalMediaLibrary.Client.ViewModel
 {
     public class IndexMediaFilesViewModel:ViewModel
     {
@@ -26,6 +29,8 @@ namespace DigitalMediaLibrary.ViewModel
         public IndexMediaFilesViewModel()
         {
             mediaFiles = new ObservableCollection<MediaFileViewModel>();
+            currentMediaType = MediaTypeDAL.GetMediaTypes().First();
+            currentDirectory = DriveInfo.GetDrives().First().RootDirectory.FullName;
         }
 
         private MediaFileViewModel selectedMediaFile;
@@ -53,7 +58,7 @@ namespace DigitalMediaLibrary.ViewModel
             set
             {
                 currentDirectory = value;
-                ReloadFiles(value);
+                ReloadFiles();
                 OnPropertyChanged("CurrentDirectory");
                 OnPropertyChanged("MediaFiles");
             }
@@ -62,6 +67,21 @@ namespace DigitalMediaLibrary.ViewModel
         public void ChangeDirectory(string path)
         {
             CurrentDirectory = path;
+        }
+
+        public void ChangeCategory(Node node)
+        {
+            if(node is CategoryNode)
+            {
+                CurrentCategory = ((CategoryNode)node).Category;
+            }
+            else
+            {
+                if(node is MediaTypeNode)
+                {
+                    CurrentMediaType = ((MediaTypeNode)node).MediaType;
+                }
+            }
         }
 
         private Category currentCategory;
@@ -75,16 +95,44 @@ namespace DigitalMediaLibrary.ViewModel
             {
                 currentCategory = value;
                 OnPropertyChanged("CurrentCategory");
+                CurrentMediaType = MediaTypeDAL.GetMediaType( value.ID_Type);
             }
         }
 
-        public void ReloadFiles(string path)
+        private MediaType currentMediaType;
+        public MediaType CurrentMediaType
         {
-            MediaFiles = new ObservableCollection<MediaFileViewModel>();
-            foreach(var mf in HelpUtils.FileManager.GetFilesFromDirectory(path))
+            get
             {
-                MediaFiles.Add(new MediaFileViewModel(mf));
+                return currentMediaType;
+            }
+            set
+            {
+                currentMediaType = value;
+                OnPropertyChanged("CurrentMediaType");
+                if (!(value is null))
+                {
+                    if (currentCategory is null || currentCategory.ID_Type != value.ID)
+                        currentCategory = CategoryDAL.GetCategories(value.ID).First();
+                    ReloadFiles();
+                }
             }
         }
+
+        public void ReloadFiles()
+        {
+            MediaFiles = new ObservableCollection<MediaFileViewModel>();
+            foreach (var mf in HelpUtils.FileManager.GetFilesFromDirectory(CurrentDirectory))
+            {
+                if (mf.Category.ID_Type == CurrentMediaType.ID)
+                {
+                    mf.Category = CurrentCategory;
+                    MediaFiles.Add(new MediaFileViewModel(mf));
+                }
+
+                    
+            }
+        }
+
     }
 }

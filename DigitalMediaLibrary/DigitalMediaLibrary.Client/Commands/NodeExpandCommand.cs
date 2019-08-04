@@ -1,4 +1,4 @@
-﻿using DigitalMediaLibrary.ViewModel;
+﻿using DigitalMediaLibrary.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DigitalMediaLibrary.Commands
+namespace DigitalMediaLibrary.Client.Commands
 {
     public class NodeExpandCommand : ICommand
     {

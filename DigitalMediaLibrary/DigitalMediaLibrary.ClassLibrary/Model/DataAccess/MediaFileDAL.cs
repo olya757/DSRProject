@@ -31,16 +31,22 @@ namespace DigitalMediaLibrary.ClassLibrary.Model.DataAccess
             }
         }
 
-        public static void SetMediaFile(MediaFile mediaFile)
+        public static bool AddMediaFile(MediaFile mediaFile)
         {
+            if (mediaFile is null)
+                return false;
             using (Context db = new Context())
             {
-                if (mediaFile is null)
-                    return;
-                if (db.MediaFiles.Any(mf => mf.ID == mediaFile.ID))
-                    db.MediaFiles.Remove(mediaFile);
+                mediaFile.Category = null;
+                if (db.MediaFiles.Any(mf => mf.ID == mediaFile.ID || mf.FullName == mediaFile.FullName))
+                {
+                    mediaFile.Category = CategoryDAL.GetCategory(mediaFile.ID_Category);
+                    return false;
+                }
                 db.MediaFiles.Add(mediaFile);
                 db.SaveChanges();
+                mediaFile.Category = CategoryDAL.GetCategory(mediaFile.ID_Category);
+                return true;
             }
         }
 

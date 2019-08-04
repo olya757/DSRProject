@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalMediaLibrary.HelpUtils
+namespace DigitalMediaLibrary.Client.HelpUtils
 {
     public class DirectoryNode
     {

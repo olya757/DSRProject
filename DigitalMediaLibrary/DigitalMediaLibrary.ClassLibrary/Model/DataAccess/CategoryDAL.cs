@@ -44,10 +44,10 @@ namespace DigitalMediaLibrary.ClassLibrary.Model.DataAccess
 
         public static void SetCategory(Category category)
         {
-            using(Context db=new Context())
+            if (category is null)
+                return;
+            using (Context db=new Context())
             {
-                if (category is null)
-                    return;
                 if (db.Categories.Any(c => c.ID == category.ID))
                 {
                     db.Categories.Remove(category);

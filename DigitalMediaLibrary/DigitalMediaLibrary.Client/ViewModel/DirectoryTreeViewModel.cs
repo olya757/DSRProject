@@ -1,5 +1,5 @@
-﻿using DigitalMediaLibrary.Commands;
-using DigitalMediaLibrary.HelpUtils;
+﻿using DigitalMediaLibrary.Client.Commands;
+using DigitalMediaLibrary.Client.HelpUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DigitalMediaLibrary.ViewModel
+namespace DigitalMediaLibrary.Client.ViewModel
 {
     public class DirectoryTreeViewModel:ViewModel
     {

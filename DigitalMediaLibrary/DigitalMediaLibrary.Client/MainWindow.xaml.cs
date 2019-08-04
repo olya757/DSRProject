@@ -1,4 +1,4 @@
-﻿using DigitalMediaLibrary.ViewModel;
+﻿using DigitalMediaLibrary.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DigitalMediaLibrary
+namespace DigitalMediaLibrary.Client
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -24,24 +24,22 @@ namespace DigitalMediaLibrary
         public MainWindow()
         {
             InitializeComponent();
-            DirectoryTreeViewModel = new DirectoryTreeViewModel();
-            DirectoriesTreeView.DataContext = DirectoryTreeViewModel;
-            IndexMediaFilesViewModel = new IndexMediaFilesViewModel();
-            MediaFilesListBox.DataContext = IndexMediaFilesViewModel;
-            DirectoryTreeViewModel.OnChange += IndexMediaFilesViewModel.ChangeDirectory;
         }
 
-        public DirectoryTreeViewModel DirectoryTreeViewModel { get; set; }
-        public IndexMediaFilesViewModel IndexMediaFilesViewModel { get; set; }
 
         private void TreeView_Expanded(object sender, RoutedEventArgs e)
         {
-            DirectoryTreeViewModel.ExpandNode(sender, e);
+            ((MainWindowViewModel)DataContext).DirectoryTreeViewModel.ExpandNode(sender, e);
         }
 
         private void DirectoriesTreeView_Selected(object sender, RoutedEventArgs e)
         {
-            DirectoryTreeViewModel.SelectNode(sender, e);
+            ((MainWindowViewModel)DataContext).DirectoryTreeViewModel.SelectNode(sender, e);
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedEventArgs e)
+        {
+            ((MainWindowViewModel)DataContext).CategoryTreeViewModel.SelectNode(sender, e);
         }
     }
 }

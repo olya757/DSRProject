@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalMediaLibrary.ViewModel
+namespace DigitalMediaLibrary.Client.ViewModel
 {
     public class CategoryViewModel:ViewModel
     {

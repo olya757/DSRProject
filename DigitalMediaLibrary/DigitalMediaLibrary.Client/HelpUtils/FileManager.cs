@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalMediaLibrary.HelpUtils
+namespace DigitalMediaLibrary.Client.HelpUtils
 {
     public enum MediaTypeEnum
     {
@@ -29,6 +29,7 @@ namespace DigitalMediaLibrary.HelpUtils
             mediaFile.DateOfCreation = fileInfo.CreationTime;
             mediaFile.Name = fileInfo.Name;
             mediaFile.Extension = fileInfo.Extension;
+            mediaFile.FullName = fileInfo.FullName;
             MediaTypeEnum mediaType = GetMediaType(mediaFile.Extension);
             long ID_Type = 0;
             switch (mediaType)

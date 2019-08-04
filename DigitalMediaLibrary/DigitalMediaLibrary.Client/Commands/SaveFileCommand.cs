@@ -1,12 +1,13 @@
-﻿using DigitalMediaLibrary.ViewModel;
+﻿using DigitalMediaLibrary.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
-namespace DigitalMediaLibrary.Commands
+namespace DigitalMediaLibrary.Client.Commands
 {
     public class SaveFileCommand : ICommand
     {
@@ -21,12 +22,15 @@ namespace DigitalMediaLibrary.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return !(mediaFileViewModel.Category is null);
         }
 
         public void Execute(object parameter)
         {
-            mediaFileViewModel.Save();
+           if(!mediaFileViewModel.Save())
+            {
+                MessageBox.Show("Данный файл уже содержится в базе");
+            }
         }
     }
 }

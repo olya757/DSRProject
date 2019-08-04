@@ -1,14 +1,17 @@
-﻿<Window x:Class="DigitalMediaLibrary.MainWindow"
+﻿<Window x:Class="DigitalMediaLibrary.Client.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DigitalMediaLibrary"
-        xmlns:Views="clr-namespace:DigitalMediaLibrary.View"
-        xmlns:ViewModels="clr-namespace:DigitalMediaLibrary.ViewModel"
-        xmlns:Converters="clr-namespace:DigitalMediaLibrary.Converters"
+        xmlns:local="clr-namespace:DigitalMediaLibrary.Client"
+        xmlns:Views="clr-namespace:DigitalMediaLibrary.Client.View"
+        xmlns:ViewModels="clr-namespace:DigitalMediaLibrary.Client.ViewModel"
+        xmlns:Converters="clr-namespace:DigitalMediaLibrary.Client.Converters"
         mc:Ignorable="d"
         Title="Цифровая медиатека" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <Converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
     </Window.Resources>
@@ -34,10 +37,7 @@
 
                         <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
                             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <TabItem Header="Каталог">
-                                <TabItem.DataContext>
-                                    <ViewModels:DirectoryTreeViewModel/>
-                                </TabItem.DataContext>
+                                <TabItem Header="Каталог" DataContext="{Binding DirectoryTreeViewModel}">
                                 <TreeView x:Name="DirectoriesTreeView" ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
                                     <TreeView.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding directoryNodes}" >
@@ -46,10 +46,14 @@
                                     </TreeView.ItemTemplate>
                                     </TreeView>
                                 </TabItem>
-                                <TabItem Header="Категория">
-                                    <TreeView>
-
-                                    </TreeView>
+                                <TabItem Header="Категория" DataContext="{Binding CategoryTreeViewModel}"  >
+                                <TreeView ItemsSource="{Binding NodesTree.RootNodes}" TreeViewItem.Selected="TreeView_SelectedItemChanged">
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Nodes}" >
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
                                 </TabItem>
                             </TabControl>
                         </Grid>
@@ -61,10 +65,7 @@
                 </Expander.Content>
             </Expander>
 
-        <Grid HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" >
-            <Grid.DataContext>
-                <ViewModels:IndexMediaFilesViewModel/>
-            </Grid.DataContext>
+        <Grid HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" DataContext="{Binding IndexMediaFilesViewModel}" >
             <ListBox x:Name="MediaFilesListBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding MediaFiles}" SelectedItem="{Binding SelectedMediaFile, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

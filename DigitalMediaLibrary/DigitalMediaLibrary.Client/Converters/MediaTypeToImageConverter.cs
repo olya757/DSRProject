@@ -1,6 +1,6 @@
-﻿using DigitalMediaLibrary.HelpUtils;
+﻿using DigitalMediaLibrary.Client.HelpUtils;
 using DigitalMediaLibrary.ClassLibrary.Model;
-using DigitalMediaLibrary.ViewModel;
+using DigitalMediaLibrary.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace DigitalMediaLibrary.Converters
+namespace DigitalMediaLibrary.Client.Converters
 {
     public class MediaTypeToImageConverter : IValueConverter
     {

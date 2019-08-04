@@ -1,4 +1,4 @@
-﻿using DigitalMediaLibrary.Commands;
+﻿using DigitalMediaLibrary.Client.Commands;
 using DigitalMediaLibrary.ClassLibrary.Model;
 using DigitalMediaLibrary.ClassLibrary.Model.DataAccess;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalMediaLibrary.ViewModel
+namespace DigitalMediaLibrary.Client.ViewModel
 {
     public class MediaFileViewModel:ViewModel
     {
@@ -111,9 +111,9 @@ namespace DigitalMediaLibrary.ViewModel
             }
         }
          
-        public void Save()
+        public bool Save()
         {
-            MediaFileDAL.SetMediaFile(mediaFile);
+            return  MediaFileDAL.AddMediaFile(mediaFile);
         }
     }
 }

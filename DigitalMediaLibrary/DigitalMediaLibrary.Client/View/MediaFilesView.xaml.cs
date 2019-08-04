@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DigitalMediaLibrary.View
+namespace DigitalMediaLibrary.Client.View
 {
     /// <summary>
     /// Логика взаимодействия для MediaFilesView.xaml

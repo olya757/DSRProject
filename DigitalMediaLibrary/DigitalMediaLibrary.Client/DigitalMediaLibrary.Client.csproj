@@ -65,9 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelpUtils\CategoryNode.cs" />
+    <Compile Include="ViewModel\CategoryTreeViewModel.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
     <Compile Include="ViewModel\DirectoryTreeViewModel.cs" />
     <Compile Include="ViewModel\IndexMediaFilesViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MediaFileViewModel.cs" />
     <Compile Include="ViewModel\MediaTypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
