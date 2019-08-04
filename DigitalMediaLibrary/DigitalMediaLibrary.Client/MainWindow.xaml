@@ -8,23 +8,25 @@
         xmlns:ViewModels="clr-namespace:DigitalMediaLibrary.Client.ViewModel"
         xmlns:Converters="clr-namespace:DigitalMediaLibrary.Client.Converters"
         mc:Ignorable="d"
-        Title="Цифровая медиатека" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
+        Title="Цифровая медиатека" MinWidth="1000" MinHeight="500" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
     <Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
+        <Converters:FromBytesToMediaConverter x:Key="FromBytesToMediaStream"/>
     </Window.Resources>
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Expander Grid.Column="0" Grid.Row="0"  
+        <Expander IsExpanded="True"
+            Grid.Column="0" Grid.Row="0"  
                   ExpandDirection="Right"
                   HorizontalAlignment="Left" 
                   Background="LightBlue" >
@@ -65,34 +67,30 @@
                 </Expander.Content>
             </Expander>
 
-        <Grid HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" DataContext="{Binding IndexMediaFilesViewModel}" >
-            <ListBox x:Name="MediaFilesListBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding MediaFiles}" SelectedItem="{Binding SelectedMediaFile, UpdateSourceTrigger=PropertyChanged}">
+        <Grid Width="Auto" Grid.Column="1" Grid.Row="0" DataContext="{Binding IndexMediaFilesViewModel}" >
+            <ListBox x:Name="MediaFilesListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding MediaFiles}" SelectedItem="{Binding SelectedMediaFile, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Margin="10,10,10,10"  />
-                    </ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" Margin="10"  />
+                        </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate >
-                    <HierarchicalDataTemplate >
-                        <Grid Width="100" Height="150">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Height="100" Width="100" Grid.Row="0" Source="{Binding Extension, Converter={StaticResource MediaTypeToImageConverter}}"/>
-                            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="{Binding Name}" TextWrapping="Wrap"/>
-                            <Grid.ContextMenu>
+                    <DataTemplate >
+                        <StackPanel Width="100" Height="150">
+                            <Image Height="100" Width="100"  Source="{Binding Extension, Converter={StaticResource MediaTypeToImageConverter}}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" TextWrapping="Wrap"/>
+                            <StackPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="Добавить в базу" Command="{Binding SaveFileCommand}"></MenuItem>
                                 </ContextMenu>
-                            </Grid.ContextMenu>
-                        </Grid>
-                         </HierarchicalDataTemplate>
+                            </StackPanel.ContextMenu>
+                        </StackPanel>
+                         </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             
         </Grid>
-        <Expander Grid.Column="2" Grid.Row="0"  
+        <Expander IsExpanded="True" Grid.Column="2" Grid.Row="0"  
                   ExpandDirection="Right"
                   FlowDirection="RightToLeft"
                   HorizontalAlignment="Left" 
@@ -100,13 +98,58 @@
             <Expander.Content>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition MinWidth="495" Width="Auto"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
-                        
-                    </Grid>
+                    <Grid DataContext="{Binding IndexMediaFilesViewModel.SelectedMediaFile}" FlowDirection="LeftToRight" HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Grid.Row="0" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="300">
+                            <MediaElement Source="{Binding Content, Converter={StaticResource FromBytesToMediaStream}}" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Margin="30 10 10 10" Width="90" HorizontalAlignment="Right"  Grid.Column="0"></Button>
+                            <Button Margin="10 10 10 10" Width="90" FontSize="20" Content="PLAY"  HorizontalAlignment="Center" Grid.Column="1"></Button>
+                            <Button Margin="10 10 30 10" Width="90" HorizontalAlignment="Left" Grid.Column="2"></Button>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="2">
+                            
+                            <Grid Grid.Column="1" Margin="10" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"></ColumnDefinition>
+                                    <ColumnDefinition Width="365"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="5" Grid.Column="0" Grid.Row="0" FontSize="20" Text="Путь:"/>
+                                <TextBlock Margin="5" Grid.Column="0" Grid.Row="1" FontSize="20" Text="Название:"/>
+                                <TextBlock Margin="5" Grid.Column="0" Grid.Row="2" FontSize="20" Text="Размер:"/>
+                                <TextBlock Margin="5" Grid.Column="0" Grid.Row="3" FontSize="20" Text="Тип:"/>
+                                <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" FontSize="20" TextWrapping="Wrap" Height="Auto" Text="{Binding FullName}"/>
+                                <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" FontSize="20" TextWrapping="Wrap" Height="Auto" Text="{Binding Name}"/>
+                                <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" FontSize="20" Text="{Binding Size}"/>
+                                <TextBlock Margin="5" Grid.Column="1" Grid.Row="3" FontSize="20" Text="{Binding MediaTypeName}"/>
+     
+                            </Grid>
+                            
+                        </Grid>
+                </Grid>
                     <GridSplitter Grid.Column="1" Width="5"
                               ResizeBehavior="PreviousAndCurrent"
                               ResizeDirection="Columns"

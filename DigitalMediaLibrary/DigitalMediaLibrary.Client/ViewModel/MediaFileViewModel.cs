@@ -35,10 +35,30 @@ namespace DigitalMediaLibrary.Client.ViewModel
             }
         }
 
+        public string FullName
+        {
+            get
+            {
+                return mediaFile.FullName;
+            }
+        }
+
+        public string MediaTypeName
+        {
+            get
+            {
+                if (Category.MediaType is null)
+                    Category.MediaType = MediaTypeDAL.GetMediaType(Category.ID_Type);
+                return Category.MediaType.Name;
+            }
+        }
+
         public Category Category
         {
             get
             {
+                if(mediaFile.Category is null)
+                mediaFile.Category= CategoryDAL.GetCategory(mediaFile.ID_Category);
                 return mediaFile.Category;
             }
             set

@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\FromBytesToMediaConverter.cs" />
     <Compile Include="HelpUtils\CategoryNode.cs" />
     <Compile Include="ViewModel\CategoryTreeViewModel.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
