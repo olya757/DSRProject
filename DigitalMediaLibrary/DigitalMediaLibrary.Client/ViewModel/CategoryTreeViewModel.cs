@@ -26,6 +26,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
             {
                 currentNode = value;
                 OnPropertyChanged("CurrentNode");
+                if(!(OnChange is null))
                 OnChange(value);
             }
         }
@@ -33,14 +34,10 @@ namespace DigitalMediaLibrary.Client.ViewModel
         public CategoryTreeViewModel()
         {
             NodesTree = new NodesTree();
-            OpenStartNode();
+            CurrentNode = NodesTree.SelectedNode;
         }
 
-        public void OpenStartNode()
-        {
-            CategoryNode categoryNode = StartProperties.Get().categoryNode;
-            currentNode = categoryNode;
-        }
+
 
         public delegate void CurrentNodeChanged(Node node);
 

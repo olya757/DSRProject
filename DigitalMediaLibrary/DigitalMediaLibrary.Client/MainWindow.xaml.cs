@@ -99,6 +99,30 @@ namespace DigitalMediaLibrary.Client
             timer.Start();*/
         }
 
+        
 
+        private void DirectoriesTreeView_Loaded(object sender, RoutedEventArgs e)
+        {
+            /*
+            var path = ((MainWindowViewModel)DataContext).DirectoryTreeViewModel.DirectoryTree.PathToStart;
+            TreeViewItem tvi= DirectoriesTreeView.ItemContainerGenerator.ContainerFromItem(path[0]) as TreeViewItem;
+            for(int i=1;i<path.Count();i++)
+            {
+                tvi.Focus();
+                tvi.IsSelected = true;
+                tvi = tvi.ItemContainerGenerator.ContainerFromItem(path[i]) as TreeViewItem;
+            }
+            var curr = ((MainWindowViewModel)DataContext).DirectoryTreeViewModel.CurrentNode;
+            TreeViewItem tvi = DirectoriesTreeView.ItemContainerGenerator.ContainerFromItem(curr) as TreeViewItem;
+            if (tvi != null) tvi.IsSelected = true;*/
+        }
+
+        private void TreeView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var curr = ((MainWindowViewModel)DataContext).CategoryTreeViewModel.CurrentNode;
+
+            TreeViewItem tvi = CategoryTreeView.ItemContainerGenerator.ContainerFromItem(curr) as TreeViewItem;
+            if (tvi != null) tvi.IsSelected = true;
+        }
     }
 }

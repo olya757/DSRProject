@@ -24,9 +24,11 @@ namespace DigitalMediaLibrary.Client.ViewModel
             }
             set
             {
-                currentNode = value;
-                OnPropertyChanged("CurrentNode");
-                OnChange(value.FullPath);
+
+                    currentNode = value;
+                    OnPropertyChanged("CurrentNode");
+                if(!(value is null))
+                    OnChange(value.FullPath);
             }
         }
 
@@ -51,7 +53,10 @@ namespace DigitalMediaLibrary.Client.ViewModel
 
         public void ExpandNode(object sender, RoutedEventArgs e)
         {
-            CurrentNode = (DirectoryNode)((TreeViewItem)e.OriginalSource).Header;
+            var head= (DirectoryNode)((TreeViewItem)e.OriginalSource).Header;
+            if (head is null)
+                return;
+            CurrentNode = head;
             CurrentNode.LoadSubdirs_NextLevels();
             OnPropertyChanged("DirectoryTree");
         }

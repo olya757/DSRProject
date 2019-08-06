@@ -29,8 +29,9 @@ namespace DigitalMediaLibrary.Client.ViewModel
         public IndexMediaFilesViewModel()
         {
             mediaFiles = new ObservableCollection<MediaFileViewModel>();
-            currentMediaType = MediaTypeDAL.GetMediaTypes().First();
-            currentDirectory = DriveInfo.GetDrives().First().RootDirectory.FullName;
+            currentMediaType = MediaTypeDAL.GetMediaType( StartProperties.Get().categoryNode.Category.ID_Type);
+            currentDirectory = StartProperties.Get().directoryNode.FullPath;
+            ReloadFiles();
         }
 
         private MediaFileViewModel selectedMediaFile;

@@ -8,14 +8,46 @@ using System.Threading.Tasks;
 
 namespace DigitalMediaLibrary.Client.HelpUtils
 {
-    public class DirectoryNode
+    public class DirectoryNode:ViewModel.ViewModel
     {
         public string Name { get; set; }
         public string FullPath { get; set; }
+        private bool isSelected;
+             
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                    isSelected = value;
+                    OnPropertyChanged("IsSelected");
+            }
+
+        }
+        private bool isExpanded;
+        public bool IsExpanded
+        {
+            get
+            {
+                return isExpanded;
+            }
+            set
+            {
+                isExpanded = value;
+                OnPropertyChanged("IsExpanded");
+            }
+        }
         public ObservableCollection<DirectoryNode> directoryNodes { get; set; }
+        public List<DirectoryNode> pathToStart { get; set; }
+
 
         public DirectoryNode(string path)
         {
+            IsSelected = false;
+            IsExpanded = false;
             FullPath = path;
             DirectoryInfo directoryInfo = new DirectoryInfo(FullPath);
             Name = directoryInfo.Name;
@@ -24,6 +56,8 @@ namespace DigitalMediaLibrary.Client.HelpUtils
 
         public DirectoryNode()
         {
+            IsSelected = false;
+            IsExpanded = false;
             Init();
             FullPath = "";
             Name = "/..";
@@ -91,6 +125,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
                 directoryInfos.Push(directoryInfo);
                 directoryInfo = directoryInfo.Parent;
             }
+            pathToStart = new List<DirectoryNode>();
             var nodes = directoryNodes;
             DirectoryNode directoryNode=this;
             while (directoryInfos.Count > 0)
@@ -100,6 +135,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
                 {
                     if (n.FullPath == directory.FullName)
                     {
+                        pathToStart.Add(n);
                         directoryNode = n;
                         nodes = n.directoryNodes;
                         n.LoadSubdirs_NextLevels();
@@ -117,10 +153,13 @@ namespace DigitalMediaLibrary.Client.HelpUtils
 
         public DirectoryNode StartNode { get; set; }
 
+        public List<DirectoryNode> PathToStart { get; set; }
+
         public DirectoryTree()
         {
             Root = new DirectoryNode();
             Root.LoadSubdirs_NextLevels();
+            
         }
 
         public DirectoryTree(string fullPath)
@@ -128,6 +167,10 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             Root = new DirectoryNode();
             Root.LoadSubdirs_NextLevels();
             StartNode = Root.Init(fullPath);
+            PathToStart = Root.pathToStart;
+            for (int i = 0; i < PathToStart.Count()-1; i++)
+                PathToStart[i].IsExpanded = true;
+            StartNode.IsSelected = true;
         }
     }
 }

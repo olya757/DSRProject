@@ -41,21 +41,35 @@
                         <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
                             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <TabItem Header="Каталог" DataContext="{Binding DirectoryTreeViewModel}">
-                                <TreeView x:Name="DirectoriesTreeView" ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
+                                <TreeView x:Name="DirectoriesTreeView"  Loaded="DirectoriesTreeView_Loaded" ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" SelectedValuePath="{Binding CurrentNode}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
+                                    <TreeView.ItemContainerStyle>
+                                        <Style TargetType="TreeViewItem">
+                                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Style>
+                                    </TreeView.ItemContainerStyle>
                                     <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding directoryNodes}" >
+                                        <HierarchicalDataTemplate ItemsSource="{Binding directoryNodes}">
                                             <TextBlock Text="{Binding Name}"></TextBlock>
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
-                                    </TreeView>
+                                </TreeView>
                                 </TabItem>
                                 <TabItem Header="Категория" DataContext="{Binding CategoryTreeViewModel}"  >
-                                <TreeView ItemsSource="{Binding NodesTree.RootNodes}" TreeViewItem.Selected="TreeView_SelectedItemChanged">
+                                <TreeView x:Name="CategoryTreeView" ItemsSource="{Binding NodesTree.RootNodes}" Loaded="TreeView_Loaded" SelectedValuePath="{Binding CurrentNode}" TreeViewItem.Selected="TreeView_SelectedItemChanged">
+                                    <TreeView.ItemContainerStyle>
+                                        <Style TargetType="TreeViewItem">
+                                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        </Style>
+                                    </TreeView.ItemContainerStyle>
                                     <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding Nodes}" >
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Nodes}">
                                             <TextBlock Text="{Binding Name}"></TextBlock>
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
+                                    
                                 </TreeView>
                                 </TabItem>
                             </TabControl>

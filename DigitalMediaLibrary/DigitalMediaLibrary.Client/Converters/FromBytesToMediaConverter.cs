@@ -18,7 +18,7 @@ namespace DigitalMediaLibrary.Client.Converters
             if (value is null)
                 return null;
             var mediaFile = (MediaFileViewModel)value;
-            string tempPath = mediaFile.Name;
+            string tempPath = "tempfile"+mediaFile.Extension;
             File.WriteAllBytes(@tempPath, mediaFile.Content);
             return tempPath;
         }
