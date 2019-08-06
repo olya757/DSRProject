@@ -15,6 +15,7 @@
     <Window.Resources>
         <Converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
         <Converters:FromBytesToMediaConverter x:Key="FromBytesToMediaStream"/>
+        <Converters:FromTimeSpanToDoubleConverter x:Key="FromTimeToDoubleConverter"/>
     </Window.Resources>
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
@@ -108,23 +109,46 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
                             <RowDefinition ></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Column="0" Grid.Row="0" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="300">
-                            <MediaElement Source="{Binding Content, Converter={StaticResource FromBytesToMediaStream}}" />
-                        </Grid>
-                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Margin="30 10 10 10" Width="90" HorizontalAlignment="Right"  Grid.Column="0"></Button>
-                            <Button Margin="10 10 10 10" Width="90" FontSize="20" Content="PLAY"  HorizontalAlignment="Center" Grid.Column="1"></Button>
-                            <Button Margin="10 10 30 10" Width="90" HorizontalAlignment="Left" Grid.Column="2"></Button>
+                            <MediaElement  Loaded="MediaPlayer_Loaded" MediaOpened="MediaPlayer_MediaOpened" ScrubbingEnabled="True"  Grid.Row="0" Grid.ColumnSpan="2" x:Name="MediaPlayer"   LoadedBehavior="Manual" Position="0">
+                            </MediaElement>
+                            <Slider x:Name="SliderMedia" Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 5"  Maximum="{Binding ElementName=MediaPlayer, Path=NaturalDuration.TimeSpan, Converter={StaticResource FromTimeToDoubleConverter}}" Value="{Binding ElementName=MediaPlayer, Path=Position, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FromTimeToDoubleConverter} , Mode=TwoWay}"></Slider>
+                            <Button IsEnabled="{Binding IsMediaOpened}" x:Name="ButtonPlay" Grid.Row="2"  Background="WhiteSmoke" Content="PLAY" Padding="5" Width="60" Margin="5" HorizontalAlignment="Right" Grid.Column="0" Command="{Binding PlayMediaCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=MediaPlayer, UpdateSourceTrigger=PropertyChanged}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button IsEnabled="{Binding IsMediaOpened}" x:Name="ButtonPause" Background="WhiteSmoke" Grid.Row="2" Width="60" Margin="5" Padding="5" Content="PAUSE" Grid.Column="1" HorizontalAlignment="Left" Command="{Binding PauseMediaCommand}" CommandParameter="{Binding ElementName=MediaPlayer, UpdateSourceTrigger=PropertyChanged}" >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                         </Grid>
-                        <Grid Grid.Column="0" Grid.Row="2">
+                        
+                        <Grid Grid.Column="0" Grid.Row="1">
                             
                             <Grid Grid.Column="1" Margin="10" VerticalAlignment="Top">
                                 <Grid.ColumnDefinitions>

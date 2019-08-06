@@ -33,7 +33,13 @@ namespace DigitalMediaLibrary.Client.ViewModel
         public CategoryTreeViewModel()
         {
             NodesTree = new NodesTree();
-            currentNode = NodesTree.RootNodes[0].Nodes[0];
+            OpenStartNode();
+        }
+
+        public void OpenStartNode()
+        {
+            CategoryNode categoryNode = StartProperties.Get().categoryNode;
+            currentNode = categoryNode;
         }
 
         public delegate void CurrentNodeChanged(Node node);

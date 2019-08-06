@@ -24,6 +24,8 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             Name = Category.Name;
             Nodes = null;
         }
+
+        public CategoryNode() { }
     }
 
     public class MediaTypeNode : Node

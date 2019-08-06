@@ -21,6 +21,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             Name = directoryInfo.Name;
         }
 
+
         public DirectoryNode()
         {
             Init();
@@ -38,6 +39,8 @@ namespace DigitalMediaLibrary.Client.HelpUtils
                     subdir.LoadSubdirs();
             }
         }
+
+        
 
         public bool LoadSubdirs()
         {
@@ -73,16 +76,58 @@ namespace DigitalMediaLibrary.Client.HelpUtils
                 directoryNodes.Add(new DirectoryNode(d.RootDirectory.FullName));
             }
         }
+
+        public DirectoryNode Init(string fullPath)
+        {
+            if (fullPath == "")
+            {
+                return this;
+            }
+            
+            DirectoryInfo directoryInfo = new DirectoryInfo(fullPath);
+            Stack<DirectoryInfo> directoryInfos = new Stack<DirectoryInfo>();
+            while(!(directoryInfo is null))
+            {
+                directoryInfos.Push(directoryInfo);
+                directoryInfo = directoryInfo.Parent;
+            }
+            var nodes = directoryNodes;
+            DirectoryNode directoryNode=this;
+            while (directoryInfos.Count > 0)
+            {
+                DirectoryInfo directory = directoryInfos.Pop();
+                foreach(var n in nodes)
+                {
+                    if (n.FullPath == directory.FullName)
+                    {
+                        directoryNode = n;
+                        nodes = n.directoryNodes;
+                        n.LoadSubdirs_NextLevels();
+                        break;
+                    }
+                }
+            }
+            return directoryNode;
+        }
     }
 
     public class DirectoryTree
     {
         public DirectoryNode Root { get; set; }
 
+        public DirectoryNode StartNode { get; set; }
+
         public DirectoryTree()
         {
             Root = new DirectoryNode();
             Root.LoadSubdirs_NextLevels();
+        }
+
+        public DirectoryTree(string fullPath)
+        {
+            Root = new DirectoryNode();
+            Root.LoadSubdirs_NextLevels();
+            StartNode = Root.Init(fullPath);
         }
     }
 }

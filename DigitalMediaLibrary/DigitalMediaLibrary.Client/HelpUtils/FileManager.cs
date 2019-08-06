@@ -44,7 +44,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             //определить категорию
             try
             {
-                mediaFile.Content = File.ReadAllBytes(path);
+                mediaFile.Content = File.ReadAllBytes(@path);
             }
             catch(Exception e)
             {

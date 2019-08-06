@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigitalMediaLibrary.Client.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -14,9 +15,12 @@ namespace DigitalMediaLibrary.Client.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            byte[] arr = (byte[])value;
-            var mediaStream = new MemoryStream(arr);
-            return mediaStream;
+            if (value is null)
+                return null;
+            var mediaFile = (MediaFileViewModel)value;
+            string tempPath = mediaFile.Name;
+            File.WriteAllBytes(@tempPath, mediaFile.Content);
+            return tempPath;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

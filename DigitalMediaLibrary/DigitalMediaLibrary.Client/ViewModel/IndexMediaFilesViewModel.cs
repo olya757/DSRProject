@@ -42,6 +42,8 @@ namespace DigitalMediaLibrary.Client.ViewModel
             }
             set
             {
+                if(!(selectedMediaFile is null))
+                    selectedMediaFile.IsMediaOpened = false;
                 selectedMediaFile = value;
                 OnPropertyChanged("SelectedMediaFile");
             }
@@ -61,6 +63,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
                 ReloadFiles();
                 OnPropertyChanged("CurrentDirectory");
                 OnPropertyChanged("MediaFiles");
+                StartProperties.SetDirectory(value);
             }
         }
 
@@ -96,6 +99,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
                 currentCategory = value;
                 OnPropertyChanged("CurrentCategory");
                 CurrentMediaType = MediaTypeDAL.GetMediaType( value.ID_Type);
+                StartProperties.SetCategory(value);
             }
         }
 

@@ -65,14 +65,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\PauseMediaCommand.cs" />
+    <Compile Include="Commands\PlayMediaCommand.cs" />
     <Compile Include="Converters\FromBytesToMediaConverter.cs" />
+    <Compile Include="Converters\FromTimeSpanToDoubleConverter.cs" />
     <Compile Include="HelpUtils\CategoryNode.cs" />
+    <Compile Include="HelpUtils\ProperiesToReloadInStart.cs" />
     <Compile Include="ViewModel\CategoryTreeViewModel.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
     <Compile Include="ViewModel\DirectoryTreeViewModel.cs" />
     <Compile Include="ViewModel\IndexMediaFilesViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MediaFileViewModel.cs" />
+    <Compile Include="ViewModel\MediaPlayerViewModel.cs" />
     <Compile Include="ViewModel\MediaTypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\MediaFilesView.xaml.cs">
@@ -139,6 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageSources\video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageSources\play.png" />
+    <Resource Include="ImageSources\pause.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

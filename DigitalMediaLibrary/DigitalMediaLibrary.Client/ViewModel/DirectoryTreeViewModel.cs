@@ -40,11 +40,14 @@ namespace DigitalMediaLibrary.Client.ViewModel
 
         public DirectoryTreeViewModel()
         {
-            DirectoryTree = new DirectoryTree();
-            currentNode = DirectoryTree.Root;
+            DirectoryNode directoryNode = StartProperties.Get().directoryNode;
+            DirectoryTree = new DirectoryTree(directoryNode.FullPath);
+            currentNode = DirectoryTree.StartNode;
             NodeExpandCommand = new NodeExpandCommand(this);
             NodeSelectCommand = new NodeSelectCommand(this);
         }
+
+
 
         public void ExpandNode(object sender, RoutedEventArgs e)
         {

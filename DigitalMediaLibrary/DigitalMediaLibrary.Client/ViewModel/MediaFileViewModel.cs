@@ -9,22 +9,48 @@ using System.Threading.Tasks;
 
 namespace DigitalMediaLibrary.Client.ViewModel
 {
+    public enum StateOfMedia
+    {
+        playing,
+        pause
+    }
     public class MediaFileViewModel:ViewModel
     {
         private MediaFile mediaFile;
+
+
+        private bool isMediaOpened;
+        public bool IsMediaOpened { get
+            {
+                return isMediaOpened;
+            }
+            set
+            {
+                isMediaOpened = value;
+                OnPropertyChanged("IsMediaOpened");
+            }
+        }
 
         public MediaFileViewModel()
         {
             mediaFile = new MediaFile();
             SaveFileCommand = new SaveFileCommand(this);
+            IsMediaOpened = false;
+            PlayMediaCommand = new PlayMediaCommand(this);
+            PauseMediaCommand = new PauseMediaCommand(this);
         }
 
         public MediaFileViewModel(MediaFile mediaFile)
         {
             this.mediaFile = mediaFile;
             SaveFileCommand = new SaveFileCommand(this);
+            IsMediaOpened = false;
+            PlayMediaCommand = new PlayMediaCommand(this);
+            PauseMediaCommand = new PauseMediaCommand(this);
         }
 
+        public PlayMediaCommand PlayMediaCommand { get; set; }
+        public PauseMediaCommand PauseMediaCommand { get; set; }
         public SaveFileCommand SaveFileCommand { get; set; }
 
         public long ID
