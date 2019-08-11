@@ -67,22 +67,15 @@
     </ApplicationDefinition>
     <Compile Include="Commands\PauseMediaCommand.cs" />
     <Compile Include="Commands\PlayMediaCommand.cs" />
-    <Compile Include="Converters\FromBytesToMediaConverter.cs" />
     <Compile Include="Converters\FromTimeSpanToDoubleConverter.cs" />
     <Compile Include="HelpUtils\CategoryNode.cs" />
     <Compile Include="HelpUtils\ProperiesToReloadInStart.cs" />
     <Compile Include="ViewModel\CategoryTreeViewModel.cs" />
-    <Compile Include="ViewModel\CategoryViewModel.cs" />
     <Compile Include="ViewModel\DirectoryTreeViewModel.cs" />
     <Compile Include="ViewModel\IndexMediaFilesViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MediaFileViewModel.cs" />
-    <Compile Include="ViewModel\MediaPlayerViewModel.cs" />
-    <Compile Include="ViewModel\MediaTypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="View\MediaFilesView.xaml.cs">
-      <DependentUpon>MediaFilesView.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,8 +84,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\NodeExpandCommand.cs" />
-    <Compile Include="Commands\NodeSelectCommand.cs" />
     <Compile Include="Commands\SaveFileCommand.cs" />
     <Compile Include="Converters\MediaTypeToImageConverter.cs" />
     <Compile Include="HelpUtils\DirectoryNode.cs" />
@@ -101,10 +92,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\MediaFilesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

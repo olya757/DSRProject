@@ -1,15 +1,10 @@
-﻿using System;
-using System.Data.Entity;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+
 
 namespace DigitalMediaLibrary.ClassLibrary.Model
 {
     public class Context: DbContext
     {
-        //public static string _path = @"Data Source=MediaLibrary.db";
         public Context() : base("DbConnection")
         {
         }

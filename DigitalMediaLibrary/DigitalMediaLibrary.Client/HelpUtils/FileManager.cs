@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigitalMediaLibrary.Client.HelpUtils
 {
@@ -41,7 +39,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             }
             mediaFile.Category = CategoryDAL.GetCategories(ID_Type).First();
             mediaFile.ID_Category = mediaFile.Category.ID;
-            //определить категорию
+
             try
             {
                 mediaFile.Content = File.ReadAllBytes(@path);

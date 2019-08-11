@@ -1,13 +1,8 @@
 ﻿using DigitalMediaLibrary.ClassLibrary.Model;
 using DigitalMediaLibrary.ClassLibrary.Model.DataAccess;
 using DigitalMediaLibrary.Client.HelpUtils;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigitalMediaLibrary.Client.ViewModel
 {
@@ -89,6 +84,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
         }
 
         private Category currentCategory;
+
         public Category CurrentCategory
         {
             get
@@ -105,6 +101,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
         }
 
         private MediaType currentMediaType;
+
         public MediaType CurrentMediaType
         {
             get
@@ -133,9 +130,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
                 {
                     mf.Category = CurrentCategory;
                     MediaFiles.Add(new MediaFileViewModel(mf));
-                }
-
-                    
+                }             
             }
         }
 

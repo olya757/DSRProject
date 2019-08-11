@@ -1,11 +1,8 @@
 ﻿using DigitalMediaLibrary.ClassLibrary.Model;
 using DigitalMediaLibrary.ClassLibrary.Model.DataAccess;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DigitalMediaLibrary.Client.HelpUtils

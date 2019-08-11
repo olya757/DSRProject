@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DigitalMediaLibrary.Client.HelpUtils;
-
-using System.Threading.Tasks;
-using DigitalMediaLibrary.ClassLibrary.Model;
+﻿using DigitalMediaLibrary.Client.HelpUtils;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -36,8 +29,6 @@ namespace DigitalMediaLibrary.Client.ViewModel
             NodesTree = new NodesTree();
             CurrentNode = NodesTree.SelectedNode;
         }
-
-
 
         public delegate void CurrentNodeChanged(Node node);
 

@@ -4,17 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalMediaLibrary.Client"
-        xmlns:Views="clr-namespace:DigitalMediaLibrary.Client.View"
         xmlns:ViewModels="clr-namespace:DigitalMediaLibrary.Client.ViewModel"
         xmlns:Converters="clr-namespace:DigitalMediaLibrary.Client.Converters"
         mc:Ignorable="d"
-        Title="Цифровая медиатека" MinWidth="1000" MinHeight="500" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
+        Title="Цифровая медиатека" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowState="Maximized" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}"  >
     <Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Converters:MediaTypeToImageConverter x:Key="MediaTypeToImageConverter"/>
-        <Converters:FromBytesToMediaConverter x:Key="FromBytesToMediaStream"/>
         <Converters:FromTimeSpanToDoubleConverter x:Key="FromTimeToDoubleConverter"/>
     </Window.Resources>
     <Grid ShowGridLines="True">
@@ -41,7 +39,7 @@
                         <Grid HorizontalAlignment="Stretch" Grid.Column="0" MinWidth="100">
                             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <TabItem Header="Каталог" DataContext="{Binding DirectoryTreeViewModel}">
-                                <TreeView x:Name="DirectoriesTreeView"  Loaded="DirectoriesTreeView_Loaded" ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" SelectedValuePath="{Binding CurrentNode}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
+                                <TreeView x:Name="DirectoriesTreeView"  ItemsSource="{Binding DirectoryTree.Root.directoryNodes}" SelectedValuePath="{Binding CurrentNode}" TreeViewItem.Expanded="TreeView_Expanded" TreeViewItem.Selected="DirectoriesTreeView_Selected" >
                                     <TreeView.ItemContainerStyle>
                                         <Style TargetType="TreeViewItem">
                                             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -135,7 +133,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <MediaElement  Loaded="MediaPlayer_Loaded" MediaOpened="MediaPlayer_MediaOpened" ScrubbingEnabled="True"  Grid.Row="0" Grid.ColumnSpan="2" x:Name="MediaPlayer"   LoadedBehavior="Manual" Position="0">
+                            <MediaElement MediaEnded="MediaPlayer_MediaEnded" Loaded="MediaPlayer_Loaded" MediaOpened="MediaPlayer_MediaOpened" ScrubbingEnabled="True"  Grid.Row="0" Grid.ColumnSpan="2" x:Name="MediaPlayer"   LoadedBehavior="Manual" Position="0">
                             </MediaElement>
                             <Slider x:Name="SliderMedia" Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 5"  Maximum="{Binding ElementName=MediaPlayer, Path=NaturalDuration.TimeSpan, Converter={StaticResource FromTimeToDoubleConverter}}" Value="{Binding ElementName=MediaPlayer, Path=Position, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FromTimeToDoubleConverter} , Mode=TwoWay}"></Slider>
                             <Button IsEnabled="{Binding IsMediaOpened}" x:Name="ButtonPlay" Grid.Row="2"  Background="WhiteSmoke" Content="PLAY" Padding="5" Width="60" Margin="5" HorizontalAlignment="Right" Grid.Column="0" Command="{Binding PlayMediaCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=MediaPlayer, UpdateSourceTrigger=PropertyChanged}">
