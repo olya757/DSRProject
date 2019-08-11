@@ -24,9 +24,9 @@ namespace DigitalMediaLibrary.Client.Commands
         public void Execute(object parameter)
         {
            if(!mediaFileViewModel.Save())
-            {
-                MessageBox.Show("Данный файл уже содержится в базе");
-            }
+           {
+               MessageBox.Show("Данный файл уже содержится в базе");
+           }
         }
     }
 }

@@ -13,9 +13,9 @@ namespace DigitalMediaLibrary.Client.ViewModel
     public class MediaFileViewModel:ViewModel
     {
         private MediaFile mediaFile;
-
-
+        
         private bool isMediaOpened;
+
         public bool IsMediaOpened { get
             {
                 return isMediaOpened;
@@ -155,7 +155,7 @@ namespace DigitalMediaLibrary.Client.ViewModel
          
         public bool Save()
         {
-            return  MediaFileDAL.AddMediaFile(mediaFile);
+            return MediaFileDAL.AddMediaFile(mediaFile);
         }
     }
 }

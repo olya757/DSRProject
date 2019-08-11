@@ -1,12 +1,6 @@
 ﻿using DigitalMediaLibrary.Client.HelpUtils;
-using DigitalMediaLibrary.ClassLibrary.Model;
-using DigitalMediaLibrary.Client.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace DigitalMediaLibrary.Client.Converters

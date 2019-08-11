@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 
-
 namespace DigitalMediaLibrary.ClassLibrary.Model
 {
     public class Context: DbContext

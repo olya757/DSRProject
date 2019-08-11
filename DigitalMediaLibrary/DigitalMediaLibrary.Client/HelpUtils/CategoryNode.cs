@@ -98,7 +98,6 @@ namespace DigitalMediaLibrary.Client.HelpUtils
                             SelectedNode.IsSelected = true;
                             break;
                         }
-
                     }
                     break;
                 }

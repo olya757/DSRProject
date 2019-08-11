@@ -22,8 +22,6 @@ namespace DigitalMediaLibrary.Client.Commands
         public void Execute(object parameter)
         {
             MediaElement mediaElement = (MediaElement)parameter;
-            
-            
             mediaElement.Play();
         }
     }

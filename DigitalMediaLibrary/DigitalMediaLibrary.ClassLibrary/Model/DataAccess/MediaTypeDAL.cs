@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 
-
 namespace DigitalMediaLibrary.ClassLibrary.Model.DataAccess
 {
     public static class MediaTypeDAL

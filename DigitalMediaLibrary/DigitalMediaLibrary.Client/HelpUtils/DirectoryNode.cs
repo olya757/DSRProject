@@ -20,8 +20,8 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             }
             set
             {
-                    isSelected = value;
-                    OnPropertyChanged("IsSelected");
+                isSelected = value;
+                OnPropertyChanged("IsSelected");
             }
 
         }
@@ -40,8 +40,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         }
         public ObservableCollection<DirectoryNode> directoryNodes { get; set; }
         public List<DirectoryNode> pathToStart { get; set; }
-
-
+        
         public DirectoryNode(string path)
         {
             IsSelected = false;
@@ -156,8 +155,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         public DirectoryTree()
         {
             Root = new DirectoryNode();
-            Root.LoadSubdirs_NextLevels();
-            
+            Root.LoadSubdirs_NextLevels();            
         }
 
         public DirectoryTree(string fullPath)
