@@ -48,6 +48,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             FullPath = path;
             DirectoryInfo directoryInfo = new DirectoryInfo(FullPath);
             Name = directoryInfo.Name;
+            pathToStart = new List<DirectoryNode>();
         }
 
 
@@ -56,8 +57,9 @@ namespace DigitalMediaLibrary.Client.HelpUtils
             IsSelected = false;
             IsExpanded = false;
             Init();
-            FullPath = "";
+            FullPath = "/..";
             Name = "/..";
+            pathToStart = new List<DirectoryNode>();
         }
 
         public void LoadSubdirs_NextLevels()

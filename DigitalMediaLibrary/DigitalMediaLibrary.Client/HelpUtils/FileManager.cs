@@ -55,7 +55,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         public static List<MediaFile> GetFilesFromDirectory(string path)
         {
             if (!Directory.Exists(path))
-                return null;
+                return new List<MediaFile>();
             List<MediaFile> mediaFiles = new List<MediaFile>();
             try
             {

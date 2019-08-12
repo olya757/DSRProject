@@ -50,7 +50,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         {
             var set = new Properties();
             var writer = new XmlSerializer(typeof(Properties));
-            var wfile = new StreamWriter(path);
+            var wfile = new StreamWriter(@path);
             writer.Serialize(wfile, set);
             wfile.Close();
             return set;
@@ -60,17 +60,22 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         {
             if (Properties != null)
                 return Properties;
-            if (!File.Exists(path))
+            if (!File.Exists(@path))
             {
                 return CreateNew();
             }
             var Serializer = new XmlSerializer(typeof(Properties));
-            var file = new StreamReader(path);
+            var file = new StreamReader(@path);
             try
             {
                 Properties properties = (Properties)Serializer.Deserialize(file);
                 file.Close();
                 Properties = properties;
+                string directoryPath = Properties.directoryNode.FullPath;
+                if (!File.Exists(directoryPath))
+                {
+                    return CreateNew();
+                }
                 return Properties;
             }
             catch (System.InvalidOperationException e)
@@ -84,7 +89,7 @@ namespace DigitalMediaLibrary.Client.HelpUtils
         {
             Properties = properies;
             var writer = new XmlSerializer(typeof(Properties));
-            var wfile = new StreamWriter(path);
+            var wfile = new StreamWriter(@path);
             writer.Serialize(wfile, Properties);
             wfile.Close();
         }
